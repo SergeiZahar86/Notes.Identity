@@ -43,11 +43,12 @@ namespace Notes.Identity.Controllers
                 return View(viewModel);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(viewModel.Username,
+            Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(viewModel.Username,
                 viewModel.Password, false, false);
             if (result.Succeeded)
             {
-                return Redirect(viewModel.ReturnUrl);
+                return Ok(viewModel);
+                //return Redirect(viewModel.ReturnUrl);
             }
             ModelState.AddModelError(string.Empty, "Login error");
             return View(viewModel);
